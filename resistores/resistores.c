@@ -28,7 +28,8 @@ int tabela (char* cor){
 }
 
 int main(){
-    int n1, n2, n3, i, res;
+    float res;
+    int n1, n2, n3, i;
     bool achou;
     char cor1[100], cor2[100], cor3[100];
     char fica;
@@ -66,18 +67,23 @@ int main(){
             printf("Essa combinação não existe!!\n\n");
             continue;
         }
-        res = n1*10 + n2;
-        printf("%d\n", res);
+        res = n1*10.0 + n2;
+        
 
         printf("Digite a terceira cor: ");
         scanf("%s", &cor3[0]);
         printf("%d\n", tabela(cor3));
         n3 = tabela(cor3);
-        for(i=0; i<n3; i++){
-            res = res*10;
+
+        if(n3 == -1){
+            res = res / 10;
+        }else{
+            for(i=0; i<n3; i++){
+                res = res*10;
+            }
         }
 
-        printf("%d\n", res);
+        printf("%f\n", res);
 
 
 
