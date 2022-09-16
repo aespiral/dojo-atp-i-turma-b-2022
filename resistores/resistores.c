@@ -28,20 +28,28 @@ int tabela (char* cor){
 }
 
 int main(){
+    int n1, n2, n3;
     char cor1[100], cor2[100], cor3[100];
     char fica;
-    int combs[13][2]={{1,0}};
+    int combs[13][2]={{1,0}, 
+                      {1,2}, 
+                      {1,5},
+                      {1,8},
+                      {2,2}};
 
     do{
         printf("Digite uma cor: ");
         scanf("%s", &cor1[0]);
         printf("%d\n", tabela(cor1));
+        n1 = tabela(cor1);
         printf("Digite a segunda cor: ");
         scanf("%s", &cor2[0]);
         printf("%d\n", tabela(cor2));
+        n2 = tabela(cor2);
         printf("Digite a terceira cor: ");
         scanf("%s", &cor3[0]);
         printf("%d\n", tabela(cor3));
+        n3 = tabela(cor3);
         printf("Quer continuar? (S / N)\n");
         scanf(" %c", &fica);
 
