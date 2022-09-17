@@ -1,7 +1,7 @@
-# Central de exercícios resolvidos em aula da Turma B de ATP-I 2022
+# Programa `sorteio`
 
-Usando a dinâmica de Dojo
+## Planos
 
-- 16/09/2022
-  - Resistores
-  - Sorteio
+- Tornar-se uma ferramenta de chamada, partindo de um arquivo com a relação de participantes
+- Participante que chega durante o dojo, entra na lista de sorteio
+- Participante que sai do dojo, deixa a lista de sorteio
