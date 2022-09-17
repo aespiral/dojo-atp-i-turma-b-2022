@@ -83,7 +83,11 @@ int main(){
             }
         }
 
-        printf("%f\n", res);
+        if (res>1000000.0){
+            printf("%f%c\n", res / 1000000.0,'M');
+        }else{
+            printf("%f\n", res);
+        }
 
 
 
