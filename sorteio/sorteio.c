@@ -5,12 +5,14 @@
 #include <time.h>
 
 typedef struct{
-    char str[50];
+    char nome[64];
+    bool presente;
+    short int rodada;
 } PARTICIPANTE;
 
 int main(){
     // Abre arquivo turma.txt ou alternativo fornecido pelo usuário ou termina
-    char arquivo[100];
+    char arquivo[256];
     strcpy(arquivo, "turma.txt");
     FILE* fp = fopen(arquivo, "r+");
     while (fp == NULL) {
@@ -29,18 +31,30 @@ int main(){
             quant++;
     }
 
-    // Copia nomes dos alunos
-    PARTICIPANTE* alunos = (PARTICIPANTE*) malloc( quant * sizeof(PARTICIPANTE) );
-    char *line = NULL;
-    size_t len = 0;
-    ssize_t read;
-    /*    while((ch = fgetc(fp))!= EOF){
-        if(ch == '\n')
-            quant++;
-    }*/
-    while ((read = getline(&line, &len, fp)) != -1) {
-        printf("Retrieved line of length %zu :\n", read);
-        printf("%s", line);
+    // Copia nomes dos participantes
+    PARTICIPANTE* parts = (PARTICIPANTE*) malloc( quant * sizeof(PARTICIPANTE) );
+    fseek(fp, 0, SEEK_SET); // Reposiciona o cursor início do arquivo
+    #define PAROU 0
+    #define ESP_BLK_EOF 1
+    int est = ESP_BLK_EOF;
+    int vez = 0;
+    int k = 0;
+    while (est != PAROU) {
+        switch (est) {
+            case ESP_BLK_EOF:
+                ch = fgetc(fp);
+                if (ch == '\n') {
+                    parts[vez].nome[k] = '\0';
+                    vez++;
+                    k=0;
+                } else if (ch == EOF) {
+                    parts[vez].nome[k] = '\0';
+                    est = PAROU;
+                } else {
+                    parts[vez].nome[k] = ch;
+                    k++;
+                }
+        }
     }
 
     // SORTEIO
@@ -65,7 +79,7 @@ int main(){
         }
         sorteados[i]=num;
  
-        printf("%d\n", sorteados[i]);
+        printf("%s\n", parts[num].nome);
         printf("Digite ENTER para o próximo");
         ch=getchar();
         
