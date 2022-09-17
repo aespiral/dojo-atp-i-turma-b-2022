@@ -31,9 +31,16 @@ int main(){
 
     // Copia nomes dos alunos
     PARTICIPANTE* alunos = (PARTICIPANTE*) malloc( quant * sizeof(PARTICIPANTE) );
-    while((ch = fgetc(fp))!= EOF){
+    char *line = NULL;
+    size_t len = 0;
+    ssize_t read;
+    /*    while((ch = fgetc(fp))!= EOF){
         if(ch == '\n')
             quant++;
+    }*/
+    while ((read = getline(&line, &len, fp)) != -1) {
+        printf("Retrieved line of length %zu :\n", read);
+        printf("%s", line);
     }
 
     // SORTEIO
