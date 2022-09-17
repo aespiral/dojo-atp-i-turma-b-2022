@@ -16,6 +16,7 @@ int main(){
     int quant;
     char arquivo[100];
 
+    // Abre arquivo turma.txt ou alternativo fornecido pelo usuário ou termina
     strcpy(arquivo, "turma.txt");
     FILE* fp = fopen(arquivo, "r+");
     while (fp == NULL) {
@@ -26,6 +27,7 @@ int main(){
         fp = fopen(arquivo, "r+");
     }
 
+    // Conta número de participantes
     quant = 0;
     while((ch = fgetc(fp))!= EOF){
         if(ch == '\n')
@@ -34,7 +36,7 @@ int main(){
 
     int* sorteados = (int*)malloc(quant*sizeof(int));
 
-    NOME*alunos = (NOME*)malloc(quant*sizeof(NOME));
+    NOME* alunos = (NOME*)malloc(quant*sizeof(NOME));
 
     while((ch = fgetc(fp))!= EOF){
         if(ch == '\n')
@@ -61,9 +63,5 @@ int main(){
         ch=getchar();
         
     }
-
-    for (i=0; i<quant ; i++){
-    }
-
 
 }
