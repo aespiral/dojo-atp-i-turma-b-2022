@@ -4,14 +4,36 @@
 #include <stdbool.h>
 #include <time.h>
 
+typedef struct{
+    char str[50];
+}NOME;
+
+
 int main(){
     srand(time(NULL));
-    int num, i,j;
-    int sorteados[12];
+    int num, i, j;
     bool achou;
+    char ch;
+    int quant;
 
-    for(i = 0; i < 13; i++){
-        num = rand() % 13;
+    FILE* fp = fopen("alunos.txt", "r");
+    quant = 0;
+    while((ch = fgetc(fp))!= EOF){
+        if(ch == '\n')
+            quant++;
+    }
+
+    int* sorteados = (int*)malloc(quant*sizeof(int));
+
+    NOME*alunos = (NOME*)malloc(quant*sizeof(NOME));
+
+    while((ch = fgetc(fp))!= EOF){
+        if(ch == '\n')
+            quant++;
+    }
+
+    for(i = 0; i < quant; i++){
+        num = rand() % quant;
         achou=false;
         for(j=0; j<i; j++){
             if(num==sorteados[j]){
@@ -23,9 +45,15 @@ int main(){
             i--;
             continue;
         }
-        printf("%d\n", num + 1);
         sorteados[i]=num;
         
+    }
+
+    for (i=0; i<quant ; i++){
+        printf("%d\n", sorteados[i]);
+        printf("Digite ENTER para o próximo");
+        //scanf(" %c", &ch);
+        ch=getchar();
     }
 
 
