@@ -50,11 +50,11 @@ int main(){
     do{
         printf("Digite uma cor: ");
         scanf("%s", &cor1[0]);
-        printf("%d\n", tabela(cor1));
+
         n1 = tabela(cor1);
         printf("Digite a segunda cor: ");
         scanf("%s", &cor2[0]);
-        printf("%d\n", tabela(cor2));
+
         n2 = tabela(cor2);
 
         achou= false;
@@ -72,7 +72,7 @@ int main(){
 
         printf("Digite a terceira cor: ");
         scanf("%s", &cor3[0]);
-        printf("%d\n", tabela(cor3));
+
         n3 = tabela(cor3);
 
         if(n3 == -1){
@@ -83,10 +83,12 @@ int main(){
             }
         }
 
-        if (res>1000000.0){
-            printf("%f%c\n", res / 1000000.0,'M');
+        if (res>=1000000.0){
+            printf("%.1f%c\n", res / 1000000.0,'M');
+        }else if(res >= 1000.0 ){
+            printf("%.1f%c\n", res / 1000.0,'K');
         }else{
-            printf("%f\n", res);
+            printf("%.1f\n", res);
         }
 
 
