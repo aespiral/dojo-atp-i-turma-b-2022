@@ -6,17 +6,11 @@
 
 typedef struct{
     char str[50];
-} NOME;
+} PARTICIPANTE;
 
 int main(){
-    srand(time(NULL));
-    int num, i, j;
-    bool achou;
-    char ch;
-    int quant;
-    char arquivo[100];
-
     // Abre arquivo turma.txt ou alternativo fornecido pelo usuário ou termina
+    char arquivo[100];
     strcpy(arquivo, "turma.txt");
     FILE* fp = fopen(arquivo, "r+");
     while (fp == NULL) {
@@ -28,20 +22,26 @@ int main(){
     }
 
     // Conta número de participantes
-    quant = 0;
+    int quant = 0;
+    char ch;
     while((ch = fgetc(fp))!= EOF){
         if(ch == '\n')
             quant++;
     }
 
+    // Copia nomes dos alunos
+    PARTICIPANTE* alunos = (PARTICIPANTE*) malloc( quant * sizeof(PARTICIPANTE) );
+    while((ch = fgetc(fp))!= EOF){
+        if(ch == '\n')
+            quant++;
+    }
+
+    // SORTEIO
+    int num, i, j;
+    bool achou;
     int* sorteados = (int*)malloc(quant*sizeof(int));
 
-    NOME* alunos = (NOME*)malloc(quant*sizeof(NOME));
-
-    while((ch = fgetc(fp))!= EOF){
-        if(ch == '\n')
-            quant++;
-    }
+    srand(time(NULL));
 
     for(i = 0; i < quant; i++){
         num = rand() % quant;
