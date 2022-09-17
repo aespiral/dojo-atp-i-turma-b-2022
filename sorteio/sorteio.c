@@ -32,28 +32,44 @@ int main(){
     }
 
     // Copia nomes dos participantes
-    PARTICIPANTE* parts = (PARTICIPANTE*) malloc( quant * sizeof(PARTICIPANTE) );
+    PARTICIPANTE* parts = (PARTICIPANTE*) malloc( (quant+1) * sizeof(PARTICIPANTE) ); //+1 Previne o caso da última linha não terminar com \n
     fseek(fp, 0, SEEK_SET); // Reposiciona o cursor início do arquivo
     #define PAROU 0
-    #define ESP_BLK_EOF 1
-    int est = ESP_BLK_EOF;
+    #define ESP_EOL_EOF 1
+    #define ESP_ALFA_EOF 2
+    int est = ESP_ALFA_EOF;
     int vez = 0;
     int k = 0;
     while (est != PAROU) {
         switch (est) {
-            case ESP_BLK_EOF:
+            case ESP_EOL_EOF:
                 ch = fgetc(fp);
                 if (ch == '\n') {
                     parts[vez].nome[k] = '\0';
                     vez++;
                     k=0;
+                    est = ESP_ALFA_EOF;
                 } else if (ch == EOF) {
                     parts[vez].nome[k] = '\0';
+                    quant++;
                     est = PAROU;
                 } else {
                     parts[vez].nome[k] = ch;
                     k++;
                 }
+                break;
+            case ESP_ALFA_EOF:
+                ch = fgetc(fp);
+                if (ch == EOF) {
+                    est = PAROU;
+                } else if (ch != '\n') {
+                    parts[vez].nome[k] = ch;
+                    k++;
+                    est = ESP_EOL_EOF;
+                } else {
+                    quant--; // Achou uma linha em branco
+                }
+                break;
         }
     }
 
@@ -79,10 +95,11 @@ int main(){
         }
         sorteados[i]=num;
  
-        printf("%s\n", parts[num].nome);
-        printf("Digite ENTER para o próximo");
-        ch=getchar();
-        
+        printf(">>> %s\n", parts[num].nome);
+        if (i != quant-1) {
+            printf("Digite ENTER para o próximo");
+            ch=getchar();
+        }
     }
 
 }
