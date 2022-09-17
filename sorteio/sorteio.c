@@ -95,10 +95,12 @@ int main(){
         }
         sorteados[i]=num;
  
-        printf(">>> %s\n", parts[num].nome);
-        if (i != quant-1) {
-            printf("Digite ENTER para o próximo");
+        printf("%s", parts[num].nome);
+        if (i < quant-1) {
+            printf(" +");
             ch=getchar();
+        } else {
+            printf("\n");
         }
     }
 
