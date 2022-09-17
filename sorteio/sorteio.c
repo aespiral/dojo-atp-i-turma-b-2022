@@ -6,8 +6,7 @@
 
 typedef struct{
     char str[50];
-}NOME;
-
+} NOME;
 
 int main(){
     srand(time(NULL));
@@ -15,8 +14,18 @@ int main(){
     bool achou;
     char ch;
     int quant;
+    char arquivo[100];
 
-    FILE* fp = fopen("alunos.txt", "r");
+    strcpy(arquivo, "turma.txt");
+    FILE* fp = fopen(arquivo, "r+");
+    while (fp == NULL) {
+        printf("Arquivo '%s' não encontrado.\nDigite outro nome de arquivo ou 'sair': ", arquivo);
+        scanf("%s", arquivo);
+        if (strcmp(arquivo, "sair")==0)
+            exit(0);
+        fp = fopen(arquivo, "r+");
+    }
+
     quant = 0;
     while((ch = fgetc(fp))!= EOF){
         if(ch == '\n')
@@ -46,14 +55,14 @@ int main(){
             continue;
         }
         sorteados[i]=num;
+ 
+        printf("%d\n", sorteados[i]);
+        printf("Digite ENTER para o próximo");
+        ch=getchar();
         
     }
 
     for (i=0; i<quant ; i++){
-        printf("%d\n", sorteados[i]);
-        printf("Digite ENTER para o próximo");
-        //scanf(" %c", &ch);
-        ch=getchar();
     }
 
 
