@@ -2,29 +2,32 @@
 #include <stdbool.h>
 #include <string.h>
 
-int tabela (char* cor){
-    if (strcmp(cor,"Preto") == 0 )
-        return 0;
-    if (strcmp(cor,"Marrom") == 0)
-        return 1;
-    if (strcmp(cor,"Vermelho") == 0 )
-        return 2;
-    if (strcmp(cor,"Laranja") == 0 )
-        return 3;
-    if (strcmp(cor,"Amarelo") == 0 )
-        return 4;   
-    if (strcmp(cor,"Verde") == 0 )
-        return 5;    
-    if (strcmp(cor,"Azul") == 0 )
-        return 6; 
-    if (strcmp(cor,"Violeta") == 0 )
-        return 7;
-    if (strcmp(cor,"Cinza") == 0 )
-        return 8;
-    if (strcmp(cor,"Branco") == 0 )
-        return 9;
-    if (strcmp(cor,"Dourado") == 0 )
-        return -1;
+typedef struct {
+    char cor[100];
+    int cod;
+} ITEM;
+
+ITEM tabela [13]={{"Preto",0},
+                  {"Marrom",1},
+                  {"Vermelho",2},
+                  {"Laranja",3},
+                  {"Amarelo",4},
+                  {"Verde",5},
+                  {"Azul",6},
+                  {"Violeta",7},
+                  {"Cinza",8},
+                  {"Branco",9},
+                  {"Dourado",-1}
+                  };
+
+int converte (char* cor){
+    int i;
+
+    for(i=0; i<13; i++){
+        if(strcmp (cor,tabela[i].cor) == 0)
+            return tabela[i].cod;
+    }
+    return -2;
 }
 
 int main(){
@@ -51,11 +54,11 @@ int main(){
         printf("Digite uma cor: ");
         scanf("%s", &cor1[0]);
 
-        n1 = tabela(cor1);
+        n1 = converte(cor1);
         printf("Digite a segunda cor: ");
         scanf("%s", &cor2[0]);
 
-        n2 = tabela(cor2);
+        n2 = converte(cor2);
 
         achou= false;
         for(i=0; i<13; i++){
@@ -73,7 +76,7 @@ int main(){
         printf("Digite a terceira cor: ");
         scanf("%s", &cor3[0]);
 
-        n3 = tabela(cor3);
+        n3 = converte(cor3);
 
         if(n3 == -1){
             res = res / 10;
